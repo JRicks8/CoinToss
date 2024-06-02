@@ -15,7 +15,7 @@ public class Main {
 
             if (userResponse.equals("yes") || userResponse.equals("y")) {
 
-                System.out.print("How many coins would you like to flip? (1-1000)");
+                System.out.print("How many coins would you like to flip? (1-1000): ");
                 int numFlips;
                 try {
                     numFlips = Integer.parseInt(scanner.nextLine().trim());
@@ -41,6 +41,11 @@ public class Main {
                 }
 
                 System.out.println("Running totals - Heads: " + headsCount + ", Tails: " + tailsCount);
+
+                // Likelihood of observed scenario
+                int totalFlips = headsCount + tailsCount;
+                float percentile = (float)headsCount / totalFlips;
+                System.out.printf("This total of heads vs tails is in the %f percentile.%n", percentile * 100);
             } else if (userResponse.equals("no") || userResponse.equals("n")) {
                 System.out.println("Goodbye!");
                 break;
