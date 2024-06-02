@@ -7,6 +7,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         String userResponse;
+        int headsCount = 0;
+        int tailsCount = 0;
         while (true) {
             System.out.print("Would you like to flip a coin? (yes/no): ");
             userResponse = scanner.nextLine().trim().toLowerCase();
@@ -16,9 +18,13 @@ public class Main {
 
                 if (flipResult == 0) {
                     System.out.println("Heads");
+                    headsCount++;
                 } else {
                     System.out.println("Tails");
+                    tailsCount++;
                 }
+
+                System.out.println("Running totals - Heads: " + headsCount + ", Tails: " + tailsCount);
             } else if (userResponse.equals("no") || userResponse.equals("n")) {
                 System.out.println("Goodbye!");
                 break;
