@@ -20,6 +20,7 @@ public class Main {
                 // Likelihood of observed scenario
                 float percentile = (float)results[0] / numFlips;
                 System.out.printf("This total of heads vs tails is in the %f percentile.%n", percentile * 100);
+                printLikelihoodResponse(percentile);
             } else if (userResponse.equals("d") || userResponse.equals("die")) {
 
                 int numRolls = getNumDiceToRoll(scanner);
@@ -41,6 +42,7 @@ public class Main {
                 float percentile = (float)(resultsSum - numRolls) / (highRange - numRolls);
                 System.out.println("Sum of all rolls: " + resultsSum);
                 System.out.printf("This total of rolls is in the %f percentile.%n", percentile * 100);
+                printLikelihoodResponse(percentile);
             } else if (userResponse.equals("no") || userResponse.equals("n")) {
                 System.out.println("Goodbye!");
                 break;
@@ -120,5 +122,20 @@ public class Main {
         }
 
         return results;
+    }
+
+    public static void printLikelihoodResponse(float percentile) {
+        float v = Math.abs(50 - percentile * 100);
+        if (v <= 10) {
+            System.out.println("Pretty standard likelihood.");
+        } else if (v <= 20) {
+            System.out.println("Pretty uncommon results!");
+        } else if (v <= 30) {
+            System.out.println("Wow! That's pretty rare!");
+        } else if (v <= 40) {
+            System.out.println("HOLY MOLY! Those are INSANE results!");
+        } else if (v <= 50) {
+            System.out.println("Now that... that is as rare as it gets. Well done.");
+        }
     }
 }
