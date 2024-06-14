@@ -13,17 +13,34 @@ public class Main {
             if (userResponse.equals("c") || userResponse.equals("coin")) {
 
                 int numFlips = getNumCoinsToFlip(scanner);
-
                 int[] results = getCoinFlipResults(numFlips);
 
                 System.out.println("Totals - Heads: " + results[0] + ", Tails: " + results[1]);
 
                 // Likelihood of observed scenario
-                int totalFlips = results[0] + results[1];
-                float percentile = (float)results[0] / totalFlips;
+                float percentile = (float)results[0] / numFlips;
                 System.out.printf("This total of heads vs tails is in the %f percentile.%n", percentile * 100);
             } else if (userResponse.equals("d") || userResponse.equals("die")) {
-                System.out.println("Unimplemented!");
+
+                int numRolls = getNumDiceToRoll(scanner);
+                int[] results = getDiceRollResults(numRolls);
+
+                System.out.println("Totals - \n" +
+                        "Ones: " + results[0] + "\n" +
+                        "Twos: " + results[1] + "\n" +
+                        "Threes: " + results[2] + "\n" +
+                        "Fours: " + results[3] + "\n" +
+                        "Fives: " + results[4] + "\n" +
+                        "Sixes: " + results[5]);
+
+                // Likelihood of observed scenario
+                int highRange = numRolls * 6;
+                int resultsSum = 0;
+                for (int i = 0; i < results.length; i++)
+                    resultsSum += results[i] * (i + 1);
+                float percentile = (float)(resultsSum - numRolls) / (highRange - numRolls);
+                System.out.println("Sum of all rolls: " + resultsSum);
+                System.out.printf("This total of rolls is in the %f percentile.%n", percentile * 100);
             } else if (userResponse.equals("no") || userResponse.equals("n")) {
                 System.out.println("Goodbye!");
                 break;
@@ -90,5 +107,18 @@ public class Main {
         }
 
         return numRolls;
+    }
+
+    public static int[] getDiceRollResults(int numRolls) {
+        int[] results = new int[6];
+        Random random = new Random();
+
+        for (int i = 0; i < numRolls; i++) {
+            int rollResult = random.nextInt(6);
+            results[rollResult]++;
+            if (numRolls <= 10) System.out.println(rollResult + 1);
+        }
+
+        return results;
     }
 }
